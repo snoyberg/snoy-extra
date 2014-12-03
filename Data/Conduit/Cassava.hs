@@ -109,8 +109,8 @@ decodeByName maxBytes opts = do
 -- | Encode unnamed records.
 --
 -- Note: If Cassava exposed its Builder internals, this could be much faster.
-encode :: (Monad m, C.ToRecord a) => C.EncodeOptions -> Conduit a m ByteString
-encode opts = awaitForever (yieldMany . toChunks . C.encodeWith opts . return)
+encode :: (Monad m, C.ToRecord a) => C.EncodeOptions -> Conduit a m BlazeBuilder
+encode opts = awaitForever (yield . C.encodeBuilderWith opts . return)
 
 -- | Encode named records.
 --
@@ -118,7 +118,7 @@ encode opts = awaitForever (yieldMany . toChunks . C.encodeWith opts . return)
 encodeByName :: (MonadThrow m, C.ToNamedRecord a)
              => C.EncodeOptions
              -> C.Header
-             -> Conduit a m ByteString
+             -> Conduit a m BlazeBuilder
 encodeByName opts header = do
     yield header =$= encode opts
     mapMC (go . C.toNamedRecord) =$= encode opts

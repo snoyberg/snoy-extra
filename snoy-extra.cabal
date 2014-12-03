@@ -44,6 +44,8 @@ test-suite spec
                      , QuickCheck
                      , text
                      , classy-prelude-conduit
+                     , cassava
+                     , conduit-extra
 
 benchmark mwc-bytestring
   type:                exitcode-stdio-1.0

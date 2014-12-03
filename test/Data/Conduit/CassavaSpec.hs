@@ -5,6 +5,7 @@ module Data.Conduit.CassavaSpec (spec) where
 import Test.Hspec
 import ClassyPrelude.Conduit
 import Data.Conduit.Cassava
+import Data.Conduit.Blaze (builderToByteString)
 import qualified Data.Csv as C
 
 spec :: Spec
@@ -21,12 +22,14 @@ spec = do
     it "encode/decode is idempotent" $ do
         res <- yieldMany sampleScores
             $$ encode defaultEncodeOptions
+            =$ builderToByteString
             =$ decode Nothing defaultDecodeOptions NoHeader
             =$ sinkList
         res `shouldBe` sampleScores
     it "encodeByName/decodeByName is idempotent" $ do
         res <- yieldMany sampleScores
             $$ encodeByName defaultEncodeOptions scoreHeader
+            =$ builderToByteString
             =$ decodeByName Nothing defaultDecodeOptions
             =$ sinkList
         res `shouldBe` sampleScores
