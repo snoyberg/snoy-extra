@@ -17,6 +17,7 @@ library
                        Control.Monad.MWC
                        Data.Conduit.Cassava
                        Data.Word8Carry
+                       Data.Streaming.Universal
   build-depends:       base >= 4.7 && < 5
                      , primitive
                      , vector
@@ -30,6 +31,7 @@ library
                      , classy-prelude-conduit
                      , cassava
                      , ghc-prim
+                     , conduit-combinators
   default-language:    Haskell2010
 
 test-suite spec
