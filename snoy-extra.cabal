@@ -47,6 +47,7 @@ test-suite spec
                      , QuickCheck
                      , text
                      , classy-prelude-conduit
+                     , cassava
 
 benchmark mwc-bytestring
   type:                exitcode-stdio-1.0
